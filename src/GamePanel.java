@@ -10,23 +10,25 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     public Ship orc1;
     public Timer timer;
 
-
     public GamePanel() {
         setFocusable(true);
         addKeyListener(this);
-        this.timer = new Timer(50, this);
+        this.timer = new Timer(25, this);
+    }
+
+    public void startEvent() {
         timer.start();
 
-
+        Image shipSprite;
         try {
-            Image image1 = ImageIO.read(new File("src/ship100.png"));
-            orc = new Ship(50,50,20,0,image1,null,1);
-            orc1 = new Ship(50,50,20,0,image1,null,1);
+            shipSprite = ImageIO.read(new File("src/assets/ship100.png"));
         }
         catch (IOException e) {
             System.out.println("Залупа а не игра");
             throw new RuntimeException(e);
         }
+        orc = new Ship(50, 50, 20, 0, shipSprite, null, 1);
+        orc1 = new Ship(50, 50, 20, 0, shipSprite, null, 1);
     }
 
     @Override
@@ -111,7 +113,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             orc1.direction.up = false;
             orc1.direction.down = false;
         }
-        System.out.println(e.getKeyCode());
+//        System.out.println(e.getKeyCode());
     }
 
     @Override

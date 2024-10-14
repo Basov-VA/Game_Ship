@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class Unit implements Moving, Drawing{
+public abstract class Unit {
     public int x = 0;
     public int y = 0;
     public int speed = 0;
@@ -17,4 +17,8 @@ public abstract class Unit implements Moving, Drawing{
         this.image = image;
         this.direction = new Direction();
     }
+
+    public void draw(Graphics g) { };
+
+    void move() { };
 }

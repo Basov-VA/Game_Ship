@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Bullet extends Unit{
+public class Bullet extends Unit {
     public int damage;
 
     public Bullet(int x, int y, int speed, double angle, Image image, int damage) {
@@ -8,13 +8,10 @@ public class Bullet extends Unit{
         this.damage = damage;
     }
 
+    // TODO
     @Override
-    public void draw(Graphics g) {
-
-    }
+    public void draw(Graphics g) { }
 
     @Override
-    public void move() {
-
-    }
+    public void move() { }
 }
