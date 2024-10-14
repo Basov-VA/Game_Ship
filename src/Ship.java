@@ -15,6 +15,7 @@ public class Ship extends Unit {
     public void move() {
         int dx = (int)(Math.sin(angle) * speed);
         int dy = (int)(-Math.cos(angle) * speed);
+
         if (this.direction.up) {
             this.x += dx;
             this.y += dy;

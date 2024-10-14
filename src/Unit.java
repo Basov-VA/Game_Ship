@@ -1,10 +1,10 @@
 import java.awt.*;
 
 public abstract class Unit {
-    public int x = 0;
-    public int y = 0;
-    public int speed = 0;
-    public double angle = 0;
+    public int x;
+    public int y;
+    public int speed;
+    public double angle;
     public Image image;
     public Direction direction;
 
@@ -18,7 +18,28 @@ public abstract class Unit {
         this.direction = new Direction();
     }
 
+    public void processKeyPressed(KeyBoardEvent.Directions direction, boolean isPressed) {
+        switch (direction) {
+            case UP -> {
+                this.direction.up = isPressed;
+                this.direction.down = false;
+            }
+            case DOWN -> {
+                this.direction.down = isPressed;
+                this.direction.up = false;
+            }
+            case RIGHT -> {
+                this.direction.right = isPressed;
+                this.direction.left = false;
+            }
+            case LEFT -> {
+                this.direction.left = isPressed;
+                this.direction.right = false;
+            }
+        }
+    }
+
     public void draw(Graphics g) { };
 
-    void move() { };
+    public void move() { };
 }
