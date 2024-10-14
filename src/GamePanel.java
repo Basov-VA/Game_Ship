@@ -82,7 +82,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         }
 
         // Поворот влево
-        if (e.getKeyCode() == KeyEvent.VK_L) {
+        if (e.getKeyCode() == KeyEvent.VK_A) {
             orc1.direction.left = true;
         }
     }
