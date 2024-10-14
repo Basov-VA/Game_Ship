@@ -21,7 +21,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         try {
             Image image1 = ImageIO.read(new File("src/ship100.png"));
             orc = new Ship(50,50,20,0,image1,null,1);
-//            Image image2 = ImageIO.read(new File("src/vulva_small.png"));
 //            orc1 = new Ship(50,50,20,0,image2,null,1);
         }
         catch (IOException e) {
