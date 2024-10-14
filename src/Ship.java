@@ -43,7 +43,6 @@ public class Ship extends Unit implements HealthPoint {
         g2d.drawImage(image, x, y, null);
         g2d.rotate(-angle, x + image.getWidth(null)/2,
                 y + image.getHeight(null)/2);
-        //g2d.drawImage(image, x, y, null);
     }
 
     @Override
