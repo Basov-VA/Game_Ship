@@ -4,6 +4,7 @@ import java.awt.*;
 public class Ship extends Unit {
     private Weapon weapon;
     private int health = 100;
+    // TODO: add keyboard type var & remove from GamePanel
 
     public Ship(int x, int y, int speed, double angle, Image image, Weapon weapon, int health) {
         super(x, y, speed, angle, image);
@@ -16,20 +17,12 @@ public class Ship extends Unit {
         int dx = (int)(Math.sin(angle) * speed);
         int dy = (int)(-Math.cos(angle) * speed);
 
-        if (this.direction.up) {
-            this.x += dx;
-            this.y += dy;
-        }
-        if (this.direction.down) {
-            this.x -= dx;
-            this.y -= dy;
-        }
-        if (this.direction.left) {
-            this.angle -= 0.1;
-        }
-        if (this.direction.right) {
-            this.angle += 0.1;
-        }
+        int forwardRatio = (this.direction.up ? 1 : 0) + (this.direction.down ? -1 : 0);
+        int angleRatio = ((this.direction.right ? 1 : 0) + (this.direction.left ? -1 : 0)) * (forwardRatio == -1 ? -1 : 1);
+
+        this.x += dx * forwardRatio;
+        this.y += dy * forwardRatio;
+        this.angle += 0.1 * angleRatio;
     }
 
     @Override

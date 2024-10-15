@@ -22,24 +22,20 @@ public abstract class Unit {
         switch (direction) {
             case UP -> {
                 this.direction.up = isPressed;
-                this.direction.down = false;
             }
             case DOWN -> {
                 this.direction.down = isPressed;
-                this.direction.up = false;
             }
             case RIGHT -> {
                 this.direction.right = isPressed;
-                this.direction.left = false;
             }
             case LEFT -> {
                 this.direction.left = isPressed;
-                this.direction.right = false;
             }
         }
     }
 
-    public void draw(Graphics g) { };
+    public void draw(Graphics g) { }
 
-    public void move() { };
+    public void move() { }
 }
