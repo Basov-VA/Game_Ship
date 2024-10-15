@@ -1,10 +1,10 @@
 import java.awt.*;
 
-public abstract class Unit implements Moving, Drawing{
-    public int x = 0;
-    public int y = 0;
-    public int speed = 0;
-    public double angle = 0;
+public abstract class Unit {
+    public int x;
+    public int y;
+    public int speed;
+    public double angle;
     public Image image;
     public Direction direction;
 
@@ -17,4 +17,25 @@ public abstract class Unit implements Moving, Drawing{
         this.image = image;
         this.direction = new Direction();
     }
+
+    public void processKeyPressed(KeyBoardEvent.Directions direction, boolean isPressed) {
+        switch (direction) {
+            case UP -> {
+                this.direction.up = isPressed;
+            }
+            case DOWN -> {
+                this.direction.down = isPressed;
+            }
+            case RIGHT -> {
+                this.direction.right = isPressed;
+            }
+            case LEFT -> {
+                this.direction.left = isPressed;
+            }
+        }
+    }
+
+    public void draw(Graphics g) { }
+
+    public void move() { }
 }
