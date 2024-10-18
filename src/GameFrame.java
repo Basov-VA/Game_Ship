@@ -12,6 +12,7 @@ public class GameFrame extends JFrame {
     public void startLoop() throws HeadlessException {
         gamePanel.startEvent();
         add(gamePanel);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 }
