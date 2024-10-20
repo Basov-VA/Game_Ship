@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
+import java.awt.image.BufferedImage;
 
 
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
@@ -21,7 +22,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     public void startEvent() {
         timer.start();
 
-        Image shipSprite;
+        BufferedImage shipSprite;
         try {
             shipSprite = ImageIO.read(new File("src/assets/ship100.png"));
         }
@@ -31,7 +32,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         }
         for (int i = 0; i < 2; ++i) {
             ships.add(
-                    new Ship(50, 50, 20, 0, shipSprite, null, 1)
+                    new Ship(50, 50, 20, 0, shipSprite, 100)
             );
         }
     }
@@ -73,9 +74,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for (Ship ship : ships) {
-            ship.move();
-        }
+        ships.getFirst().move(ships.getLast());
+        ships.getLast().move(ships.getFirst());
         repaint();
     }
 }

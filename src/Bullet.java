@@ -1,17 +1,11 @@
-import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Bullet extends Unit {
     public int damage;
 
-    public Bullet(int x, int y, int speed, double angle, Image image, int damage) {
-        super(x, y, speed, angle, image);
+    public Bullet(int x, int y, int speed, double angle, BufferedImage image, int damage) {
+        super(x, y, speed, angle, damage, image);
+        this.direction.up = true;
         this.damage = damage;
     }
-
-    // TODO
-    @Override
-    public void draw(Graphics g) { }
-
-    @Override
-    public void move() { }
 }
