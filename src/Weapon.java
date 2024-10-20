@@ -32,7 +32,6 @@ public class Weapon {
     }
 
     public void move(Unit unit) {
-        System.out.println(bullets.size());
         for (Bullet bullet : this.bullets) {
             bullet.move();
             checkCollision(bullet, unit);
@@ -40,6 +39,7 @@ public class Weapon {
     }
 
     public void attack(int x, int y, double angle) {
+        if (bullets.size() >= maxBulletsCount_) return;
         this.bullets.add(new Bullet(x, y, 30, angle, this.image, 10));
     }
 
