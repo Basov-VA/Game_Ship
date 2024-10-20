@@ -53,6 +53,7 @@ public class Ship extends Unit {
     }
 
     void kill() {
+        if (isDead) return;
         isDead = true;
         try {
             image = ImageIO.read(new File("src/assets/explosion.png"));
