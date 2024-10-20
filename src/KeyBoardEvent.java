@@ -7,37 +7,40 @@ public class KeyBoardEvent {
         ARROWS
     }
 
-    public enum Directions {
+    public enum Action {
         NONE,
         UP,
         DOWN,
         RIGHT,
         LEFT,
+        ATTACK
     }
 
-    private static final Map<Integer, Directions> WASD_KEYS = Map.of(
-            KeyEvent.VK_UP, Directions.UP,
-            KeyEvent.VK_DOWN, Directions.DOWN,
-            KeyEvent.VK_RIGHT, Directions.RIGHT,
-            KeyEvent.VK_LEFT, Directions.LEFT
+    private static final Map<Integer, Action> WASD_KEYS = Map.of(
+            KeyEvent.VK_UP, Action.UP,
+            KeyEvent.VK_DOWN, Action.DOWN,
+            KeyEvent.VK_RIGHT, Action.RIGHT,
+            KeyEvent.VK_LEFT, Action.LEFT,
+            KeyEvent.VK_SLASH, Action.ATTACK
     );
 
-    private static final Map<Integer, Directions> ARROWS_KEYS = Map.of(
-            KeyEvent.VK_W, Directions.UP,
-            KeyEvent.VK_S, Directions.DOWN,
-            KeyEvent.VK_D, Directions.RIGHT,
-            KeyEvent.VK_A, Directions.LEFT
+    private static final Map<Integer, Action> ARROWS_KEYS = Map.of(
+            KeyEvent.VK_W, Action.UP,
+            KeyEvent.VK_S, Action.DOWN,
+            KeyEvent.VK_D, Action.RIGHT,
+            KeyEvent.VK_A, Action.LEFT,
+            KeyEvent.VK_SPACE, Action.ATTACK
     );
 
-    private static final Map<KeyBoards, Map<Integer, Directions>> getKeyboard = Map.of(
+    private static final Map<KeyBoards, Map<Integer, Action>> getKeyboard = Map.of(
             KeyBoards.WASD, WASD_KEYS,
             KeyBoards.ARROWS, ARROWS_KEYS
     );
 
-    public static Directions processKey(Integer eventCode, KeyBoards keyBoardType) {
-        Map<Integer, Directions> keyBoard = getKeyboard.get(keyBoardType);
+    public static Action processKey(Integer eventCode, KeyBoards keyBoardType) {
+        Map<Integer, Action> keyBoard = getKeyboard.get(keyBoardType);
         if (!keyBoard.containsKey(eventCode)) {
-            return Directions.NONE;
+            return Action.NONE;
         }
         return keyBoard.get(eventCode);
     }

@@ -1,39 +1,65 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
 public class Ship extends Unit {
-    private Weapon weapon;
-    private int health = 100;
+    private final Weapon weapon;
+    public boolean isDead;
     // TODO: add keyboard type var & remove from GamePanel
 
-    public Ship(int x, int y, int speed, double angle, Image image, Weapon weapon, int health) {
-        super(x, y, speed, angle, image);
-        this.weapon = weapon;
-        this.health = health;
-    }
-
-    @Override
-    public void move() {
-        int dx = (int)(Math.sin(angle) * speed);
-        int dy = (int)(-Math.cos(angle) * speed);
-
-        int forwardRatio = (this.direction.up ? 1 : 0) + (this.direction.down ? -1 : 0);
-        int angleRatio = ((this.direction.right ? 1 : 0) + (this.direction.left ? -1 : 0)) * (forwardRatio == -1 ? -1 : 1);
-
-        this.x += dx * forwardRatio;
-        this.y += dy * forwardRatio;
-        this.angle += 0.1 * angleRatio;
+    public Ship(int x, int y, int speed, double angle, BufferedImage image, int health) {
+        super(x, y, speed, angle, health, image);
+        this.weapon = new Weapon(this, 5);
+        this.isDead = false;
     }
 
     @Override
     public void draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
+        super.draw(g);
+        this.weapon.draw(g);
+    }
 
-        double xRot = x + (double) image.getWidth(null) / 2;
-        double yRot = y + (double) image.getHeight(null) / 2;
+    public void move(Ship other) {
+        if (isDead) return;
+        super.move();
+        this.weapon.move(other);
+    }
 
-        g2d.rotate(angle, xRot, yRot);
-        g2d.drawImage(image, x, y, null);
-        g2d.rotate(-angle, xRot, yRot);
+    @Override
+    public void getDamage(int damage) {
+        super.getDamage(damage);
+        if (this.hp <= 0) this.kill();
+    }
+
+    public void processKeyPressed(KeyBoardEvent.Action direction, boolean isPressed) {
+        switch (direction) {
+            case UP -> this.direction.up = isPressed;
+            case DOWN -> this.direction.down = isPressed;
+            case RIGHT -> this.direction.right = isPressed;
+            case LEFT -> this.direction.left = isPressed;
+            case ATTACK -> { if (isPressed) this.attack(); }
+        }
+    }
+
+    public void attack() {
+        this.weapon.attack(
+                this.x + this.image.getWidth() / 2,
+                this.y + this.image.getHeight() / 2,
+                this.angle
+        );
+    }
+
+    void kill() {
+        isDead = true;
+        try {
+            image = ImageIO.read(new File("src/assets/explosion.png"));
+        }
+        catch (IOException e) {
+            System.out.println("Explosion asset load err");
+            throw new RuntimeException(e);
+        }
     }
 }

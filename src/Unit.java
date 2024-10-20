@@ -1,41 +1,50 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public abstract class Unit {
     public int x;
     public int y;
     public int speed;
     public double angle;
-    public Image image;
+    public int hp;
+    public BufferedImage image;
     public Direction direction;
 
-
-    public Unit(int x, int y, int speed, double angle, Image image) {
+    public Unit(int x, int y, int speed, double angle, int hp, BufferedImage image) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.angle = angle;
         this.image = image;
+        this.hp = hp;
         this.direction = new Direction();
+
     }
 
-    public void processKeyPressed(KeyBoardEvent.Directions direction, boolean isPressed) {
-        switch (direction) {
-            case UP -> {
-                this.direction.up = isPressed;
-            }
-            case DOWN -> {
-                this.direction.down = isPressed;
-            }
-            case RIGHT -> {
-                this.direction.right = isPressed;
-            }
-            case LEFT -> {
-                this.direction.left = isPressed;
-            }
-        }
+    public void draw(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        double xRot = x + (double) image.getWidth(null) / 2;
+        double yRot = y + (double) image.getHeight(null) / 2;
+
+        g2d.rotate(angle, xRot, yRot);
+        g2d.drawImage(image, x, y, null);
+        g2d.rotate(-angle, xRot, yRot);
     }
 
-    public void draw(Graphics g) { }
+    public void move() {
+        int dx = (int)(Math.sin(angle) * speed);
+        int dy = (int)(-Math.cos(angle) * speed);
 
-    public void move() { }
+        int forwardRatio = (this.direction.up ? 1 : 0) + (this.direction.down ? -1 : 0);
+        int angleRatio = ((this.direction.right ? 1 : 0) + (this.direction.left ? -1 : 0)) * (forwardRatio == -1 ? -1 : 1);
+
+        this.x += dx * forwardRatio;
+        this.y += dy * forwardRatio;
+        this.angle += 0.1 * angleRatio;
+    }
+
+    public void getDamage(int damage) {
+        this.hp -= damage;
+    }
 }
