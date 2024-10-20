@@ -12,7 +12,7 @@ public class Ship extends Unit {
 
     public Ship(int x, int y, int speed, double angle, BufferedImage image, int health) {
         super(x, y, speed, angle, health, image);
-        this.weapon = new Weapon(this, 5);
+        this.weapon = new Weapon(this, 3);
         this.isDead = false;
     }
 
